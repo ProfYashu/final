@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Construction Company</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+            transition: background-color 0.3s ease;
+        }
+
+        body:hover {
+            background-color: #e8e8e8;
+        }
+
+        /* Header styles */
+        header {
+            background-color: #2c3e50;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        header:hover {
+            background-color: #34495e;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover img {
+            transform: scale(1.1);
+        }
+
+        .logo span {
+            color: #ecf0f1;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .logo:hover span {
+            color: #3498db;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 1rem;
+            position: relative;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #ecf0f1;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background-color: #ecf0f1;
+            color: #2c3e50;
+            transform: translateY(-2px);
+        }
+
+        /* Dropdown styles */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #34495e;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-content a {
+            color: #ecf0f1;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            transform: translateY(5px);
+        }
+
+        .dropdown-content a:hover {
+            background-color: #2c3e50;
+            transform: translateX(5px);
+        }
+
+        /* Hero section styles */
+        .hero {
+            background-image: url('/placeholder.svg?height=400&width=800');
+            background-size: cover;
+            background-position: center;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            transition: background 0.3s ease;
+        }
+
+        .hero:hover::before {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            padding: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .hero:hover .hero-content {
+            transform: scale(1.05);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Section styles */
+        .section {
+            padding: 2rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .section:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .section:hover {
+            background-color: #e8e8e8;
+        }
+
+        .section h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #2c3e50;
+            transition: color 0.3s ease;
+        }
+
+        .section:hover h2 {
+            color: #3498db;
+        }
+
+        /* Grid styles */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .grid-item {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .grid-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Projects section styles */
+        .project-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .project-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .project-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .project-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(50, 200, 130, 238);
+            color: white;
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .project-item:hover .project-overlay {
+            transform: translateY(0);
+        }
+
+        .project-status {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .status-completed {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .status-ongoing {
+            background-color: #FFC107;
+            color: black;
+        }
+
+        .project-item:hover .project-status {
+            transform: scale(1.1);
+        }
+
+        /* Tender and Job styles */
+        .tender-item, .job-item {
+            border: 1px solid #ddd;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .tender-item:hover, .job-item:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-3px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .tender-item h3, .job-item h3 {
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+            transition: color 0.3s ease;
+        }
+
+        .tender-item:hover h3, .job-item:hover h3 {
+            color: #3498db;
+        }
+
+        .button {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Footer styles */
+        footer {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            text-align: center;
+            padding: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        footer:hover {
+            background-color: #34495e;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="fig.png" alt="Your Construction Co. Logo">
+                <span>HRKCPL</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">HOME</a></li>
+                <li><a href="#services">SERVICES</a></li>
+                <li class="dropdown">
+                    <a href="#projects">PROJECTS</a>
+                    <div class="dropdown-content">
+                        <a href="#completed-projects">Completed Projects</a>
+                        <a href="#ongoing-projects">Ongoing Projects</a>
+                    </div>
+                </li>
+                <li><a href="#tenders">TENDERS</a></li>
+                <li><a href="#careers">RECRUITMENT</a></li>
+                <li><a href="#contact">CONTACT US</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>Building Your Future</h1>
+                <p>Quality construction services for residential and commercial projects</p>
+            </div>
+        </section>
+
+        <section id="services" class="section">
+            <h2>Our Services</h2>
+            <div class="grid">
+                <div class="grid-item">
+                    <h3>Residential Construction</h3>
+                    <p>Custom homes and renovations tailored to your needs.</p>
+                </div>
+                <div class="grid-item">
+                    <h3>Commercial Construction</h3>
+                    <p>Office buildings, retail spaces, and industrial facilities.</p>
+                </div>
+                <div class="grid-item">
+                    <h3>Project Management</h3>
+                    <p>Efficient oversight and coordination of your construction project.</p>
+                </div>
+                <div class="grid-item">
+                    <h3>Sustainable Building</h3>
+                    <p>Eco-friendly construction practices and materials.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="section">
+            <h2>Our Projects</h2>
+            <section id="completed-projects">
+                <h3>Completed Projects</h3>
+                <div class="grid">
+                    <div class="grid-item project-item">
+                        <img src="/placeholder.svg?height=300&width=400" alt="Modern Office Building">
+                        <div class="project-status status-completed">Completed</div>
+                        <div class="project-overlay">
+                            <h3>Modern Office Building</h3>
+                            <p>A state-of-the-art commercial space in the heart of the city.</p>
+                        </div>
+                    </div>
+                    <div class="grid-item project-item">
+                        <img src="/placeholder.svg?height=300&width=400" alt="Luxury Residential Complex">
+                        <div class="project-status status-completed">Completed</div>
+                        <div class="project-overlay">
+                            <h3>Luxury Residential Complex</h3>
+                            <p>High-end apartments with premium amenities.</p>
+                        </div>
+                    </div>
+                    <div class="grid-item project-item">
+                        <img src="/placeholder.svg?height=300&width=400" alt="Sustainable Community Center">
+                        <div class="project-status status-completed">Completed</div>
+                        <div class="project-overlay">
+                            <h3>Sustainable Community Center</h3>
+                            <p>An eco-friendly public space for community gatherings.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="ongoing-projects">
+                <h3>Ongoing Projects</h3>
+                <div class="grid">
+                    <div class="grid-item project-item">
+                        <img src="/placeholder.svg?height=300&width=400" alt="Green Office Tower">
+                        <div class="project-status status-ongoing">Ongoing</div>
+                        <div class="project-overlay">
+                            <h3>Green Office Tower</h3>
+                            <p>A cutting-edge, environmentally friendly skyscraper.</p>
+                        </div>
+                    </div>
+                    <div class="grid-item project-item">
+                        <img src="/placeholder.svg?height=300&width=400" alt="Mixed-Use Development">
+                        <div class="project-status status-ongoing">Ongoing</div>
+                        <div class="project-overlay">
+                            <h3>Mixed-Use Development</h3>
+                            <p>A vibrant combination of residential, commercial, and retail spaces.</p>
+                        </div>
+                    </div>
+                    <div class="grid-item project-item">
+                        <img src="/placeholder.svg?height=300&width=400" alt="Historic Building Restoration">
+                        <div class="project-status status-ongoing">Ongoing</div>
+                        <div class="project-overlay">
+                            <h3>Historic Building Restoration</h3>
+                            <p>Preserving the past while modernizing for the future.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <section id="tenders" class="section">
+            <h2>Current Tenders</h2>
+            <div class="tender-item">
+                <h3>Irrigation System Installation</h3>
+                <p>Seeking bids for the design and installation of a large-scale irrigation system for an agricultural development project.</p>
+                <p><strong>Deadline:</strong> August 15, 2023</p>
+                <a href="#" class="button">View Tender Details</a>
+            </div>
+            <div class="tender-item">
+                <h3>Land Preparation Services</h3>
+                <p>Tenders invited for land clearing, leveling, and preparation services for a new residential development.</p>
+                <p><strong>Deadline:</strong> July 30, 2023</p>
+                <a href="#" class="button">View Tender Details</a>
+            </div>
+            <div class="tender-item">
+                <h3>Pesticide and Fertilizer Supply</h3>
+                <p>Looking for suppliers of eco-friendly pesticides and organic fertilizers for a large-scale farming project.</p>
+                <p><strong>Deadline:</strong> September 1, 2023</p>
+                <a href="#" class="button">View Tender Details</a>
+            </div>
+            <div class="tender-item">
+                <h3>Harvesting Equipment Rental</h3>
+                <p>Seeking proposals for the rental of modern harvesting equipment for the upcoming harvest season.</p>
+                <p><strong>Deadline:</strong> August 20, 2023</p>
+                <a href="#" class="button">View Tender Details</a>
+            </div>
+            <div class="tender-item">
+                <h3>Godown and Cold Storage Construction</h3>
+                <p>Tenders invited for the construction of state-of-the-art godowns and cold storage facilities.</p>
+                <p><strong>Deadline:</strong> October 5, 2023</p>
+                <a href="#" class="button">View Tender Details</a>
+            </div>
+            <div class="tender-item">
+                <h3>Water Regulation System for Irrigation</h3>
+                <p>Seeking proposals for the design and implementation of an advanced water regulation system for irrigation purposes.</p>
+                <p><strong>Deadline:</strong> September 15, 2023</p>
+                <a href="#" class="button">View Tender Details</a>
+            </div>
+            <div class="tender-item">
+                <h3>Transportation Services</h3>
+                <p>Looking for transportation providers for various components including equipment, materials, and produce.</p>
+                <p><strong>Deadline:</strong> August 10, 2023</p>
+                <a href="#" class="button">View Tender Details</a>
+            </div>
+            <div class="tender-item">
+                <h3>Project Insurance Services</h3>
+                <p>Seeking comprehensive insurance coverage for large-scale agricultural and construction projects.</p>
+                <p><strong>Deadline:</strong> July 25, 2023</p>
+                <a href="#" class="button">View Tender Details</a>
+            </div>
+            <div class="tender-item">
+                <h3>Marketing Services for Agricultural Products</h3>
+                <p>Tenders invited for marketing and distribution services for a range of agricultural products.</p>
+                <p><strong>Deadline:</strong> September 30, 2023</p>
+                <a href="#" class="button">View Tender Details</a>
+            </div>
+            <div class="tender-item">
+                <h3>Equipment Repair and Maintenance Services</h3>
+                <p>Seeking skilled technicians for the repair and maintenance of various agricultural and construction equipment.</p>
+                <p><strong>Deadline:</strong> August 5, 2023</p>
+                <a href="#" class="button">View Tender Details</a>
+            </div>
+            <div class="tender-item">
+                <h3>Financial Management System Implementation</h3>
+                <p>Looking for experienced firms to implement a comprehensive financial management system for our operations.</p>
+                <p><strong>Deadline:</strong> September 20, 2023</p>
+                <a href="#" class="button">View Tender Details</a>
+            </div>
+        </section>
+
+        <section id="careers" class="section">
+            <h2>Join Our Team</h2>
+            <p>We're always looking for talented individuals to join our team. Check out our current openings below:</p>
+            <div class="job-item">
+                <h3>Irrigation Systems Engineer</h3>
+                <p>Design and oversee the implementation of efficient irrigation systems for large-scale projects.</p>
+                <a href="#" class="button">Apply Now</a>
+            </div>
+            <div class="job-item">
+                <h3>Land Preparation Specialist</h3>
+                <p>Manage and execute land preparation activities for various construction and agricultural projects.</p>
+                <a href="#" class="button">Apply Now</a>
+            </div>
+            <div class="job-item">
+                <h3>Pest Control Expert</h3>
+                <p>Develop and implement integrated pest management strategies for agricultural projects.</p>
+                <a href="#" class="button">Apply Now</a>
+            </div>
+            <div class="job-item">
+                <h3>Agricultural Operations Manager</h3>
+                <p>Oversee daily operations, including fertilizer application and crop management.</p>
+                <a href="#" class="button">Apply Now</a>
+            </div>
+            <div class="job-item">
+                <h3>Harvesting Equipment Operator</h3>
+                <p>Operate and maintain various types of harvesting equipment for agricultural projects.</p>
+                <a href="#" class="button">Apply Now</a>
+            </div>
+            <div class="job-item">
+                <h3>Warehouse and Cold Storage Manager</h3>
+                <p>Manage the operations of our godowns and cold storage facilities to ensure optimal storage conditions.</p>
+                <a href="#" class="button">Apply Now</a>
+            </div>
+            <div class="job-item">
+                <h3>Water Resource Management Specialist</h3>
+                <p>Develop and implement strategies for efficient water use in irrigation systems.</p>
+                <a href="#" class="button">Apply Now</a>
+            </div>
+            <div class="job-item">
+                <h3>Logistics Coordinator</h3>
+                <p>Manage transportation and logistics for various project components and agricultural produce.</p>
+                <a href="#" class="button">Apply Now</a>
+            </div>
+            <div class="job-item">
+                <h3>Risk Management Specialist</h3>
+                <p>Assess and manage risks related to project insurance and overall operations.</p>
+                <a href="#" class="button">Apply Now</a>
+            </div>
+            <div class="job-item">
+                <h3>MARKETING OF PRODUCTS</h3>
+                <p>Develop and implement marketing strategies for our agricultural products.</p>
+                <a href="#" class="button">Apply Now</a>
+            </div>
+            <div class="job-item">
+                <h3>REPAIRS AND MAINTANANCE </h3>
+                <p>Perform repairs and routine maintenance on various agricultural and construction equipment.</p>
+                <a href="#" class="button">Apply Now</a>
+            </div>
+            <div class="job-item">
+                <h3>FINANCE MANAGENENT SYSTEM</h3>
+                <p>Manage financial operations and implement robust financial management systems.</p>
+                <a href="#" class="button">Apply Now</a>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-contact">
+                <h3>Contact Us</h3>
+                <p>HRKCPL,H-NO-14-5-5,Behind  MVS Govt junior  college, SRNagar, Christianpally, Mahabubnagar.509001 Telangana state.</p>
+                <p>Phone: +91 9440895609 ,+91 <b>9705878096</p>
+                <p>Email: sarafravinder@gmail.com</p>
+            </div>
+            <div class="footer-info">
+                <p>&copy; 2024 HRKCPL. All Rights Reserved.</p>
+                <p>Designed & Developed by HRKCPL IT Team</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
